@@ -62,7 +62,7 @@ class FavoritesScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   SizedBox(
-                    height: 220,
+                    height: 245,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: favRestaurants.length,

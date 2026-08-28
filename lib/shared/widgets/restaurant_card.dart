@@ -38,7 +38,7 @@ class RestaurantCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(AppTheme.radiusXl)),
                   child: AspectRatio(
-                    aspectRatio: 1.85,
+                    aspectRatio: 2.1,
                     child: Image.asset(
                       restaurant.bannerImage,
                       fit: BoxFit.cover,
@@ -146,11 +146,14 @@ class RestaurantCard extends StatelessWidget {
                       const SizedBox(width: 8),
                       Container(width: 3, height: 3, decoration: const BoxDecoration(color: AppColors.textMuted, shape: BoxShape.circle)),
                       const SizedBox(width: 8),
-                      Text(
-                        '\$${restaurant.deliveryCharge.toStringAsFixed(2)} delivery',
-                        style: AppTypography.caption.copyWith(
-                          color: AppColors.textLight,
-                          fontWeight: FontWeight.w600,
+                      Flexible(
+                        child: Text(
+                          '\$${restaurant.deliveryCharge.toStringAsFixed(2)} delivery',
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.textLight,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ],
