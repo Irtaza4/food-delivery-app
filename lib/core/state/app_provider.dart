@@ -15,24 +15,8 @@ class AppProvider extends ChangeNotifier {
   String _appliedPromo = '';
   double _promoDiscountPercent = 0.0;
 
-  // Cart
-  final List<CartItem> _cartItems = [
-    CartItem(
-      id: 'cart_item_1',
-      food: MockData.foodItems[4], // Vanilla Ice Cream $3.00
-      quantity: 1,
-    ),
-    CartItem(
-      id: 'cart_item_2',
-      food: MockData.foodItems[5], // Hotdog Platter $4.00
-      quantity: 1,
-    ),
-    CartItem(
-      id: 'cart_item_3',
-      food: MockData.foodItems[0], // Beef Spicy Burger $4.00
-      quantity: 1,
-    ),
-  ];
+  // Cart (starts empty on app start)
+  final List<CartItem> _cartItems = [];
 
   // Favorites
   final Set<String> _favoriteFoodIds = {'beef_spicy_burger', 'fried_chicken', 'vanilla_ice_cream'};

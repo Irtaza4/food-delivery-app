@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import '../../core/models/food_item.dart';
 import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
@@ -176,68 +177,122 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   Widget _buildCartItem(int index, int activeIndex) {
     final isSelected = activeIndex == index;
-    return Consumer<AppProvider>(
-      builder: (context, provider, _) {
-        final count = provider.cartCount;
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: EdgeInsets.symmetric(
-            horizontal: isSelected ? 14 : 10,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.transparent,
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Icon(
-                    Icons.shopping_bag_outlined,
-                    color: isSelected ? AppColors.primary : AppColors.textMuted,
-                    size: 22,
-                  ),
-                  if (count > 0)
-                    Positioned(
-                      right: -6,
-                      top: -4,
-                      child: Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: const BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-                        child: Center(
-                          child: Text(
-                            '$count',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              if (isSelected) ...[
-                const SizedBox(width: 6),
-                Text(
-                  'Cart',
-                  style: AppTypography.caption.copyWith(
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 12,
+    return DragTarget<FoodItem>(
+      onWillAcceptWithDetails: (details) {
+        HapticFeedback.selectionClick();
+        return true;
+      },
+      onAcceptWithDetails: (details) {
+        final provider = Provider.of<AppProvider>(context, listen: false);
+        provider.addToCart(details.data);
+        HapticFeedback.heavyImpact();
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.textPrimary,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle_rounded, color: Color(0xFF22C55E), size: 20),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    '${details.data.name} dropped into cart!',
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13),
                   ),
                 ),
               ],
-            ],
+            ),
+            duration: const Duration(seconds: 2),
+            action: SnackBarAction(
+              label: 'VIEW CART',
+              textColor: AppColors.gold,
+              onPressed: () => provider.setNavIndex(1),
+            ),
           ),
+        );
+      },
+      builder: (context, candidateData, rejectedData) {
+        final isHovering = candidateData.isNotEmpty;
+        return Consumer<AppProvider>(
+          builder: (context, provider, _) {
+            final count = provider.cartCount;
+            return AnimatedScale(
+              scale: isHovering ? 1.25 : 1.0,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOutBack,
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                padding: EdgeInsets.symmetric(
+                  horizontal: isSelected || isHovering ? 14 : 10,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: isHovering
+                      ? AppColors.primary.withValues(alpha: 0.25)
+                      : isSelected
+                          ? AppColors.primary.withValues(alpha: 0.1)
+                          : Colors.transparent,
+                  borderRadius: BorderRadius.circular(24),
+                  border: isHovering
+                      ? Border.all(color: AppColors.primary, width: 1.5)
+                      : null,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Icon(
+                          isHovering ? Icons.shopping_cart_rounded : Icons.shopping_bag_outlined,
+                          color: isSelected || isHovering ? AppColors.primary : AppColors.textMuted,
+                          size: isHovering ? 24 : 22,
+                        ),
+                        if (count > 0)
+                          Positioned(
+                            right: -6,
+                            top: -4,
+                            child: Container(
+                              padding: const EdgeInsets.all(3),
+                              decoration: const BoxDecoration(
+                                color: AppColors.primary,
+                                shape: BoxShape.circle,
+                              ),
+                              constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+                              child: Center(
+                                child: Text(
+                                  '$count',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    if (isSelected || isHovering) ...[
+                      const SizedBox(width: 6),
+                      Text(
+                        isHovering ? 'Drop Here' : 'Cart',
+                        style: AppTypography.caption.copyWith(
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );
