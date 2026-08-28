@@ -330,7 +330,6 @@ class HomeScreen extends StatelessWidget {
     return Consumer<AppProvider>(
       builder: (context, provider, _) {
         return SizedBox(
-          height: 88,
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,
@@ -426,7 +425,7 @@ class HomeScreen extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 220,
+          height: 245,
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,

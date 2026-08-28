@@ -38,7 +38,7 @@ class RestaurantCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(AppTheme.radiusXl)),
                   child: AspectRatio(
-                    aspectRatio: 1.7,
+                    aspectRatio: 1.85,
                     child: Image.asset(
                       restaurant.bannerImage,
                       fit: BoxFit.cover,
@@ -103,7 +103,7 @@ class RestaurantCard extends StatelessWidget {
             ),
             // Info content
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
