@@ -147,60 +147,51 @@ class FoodCard extends StatelessWidget {
       ),
     );
 
-    return LongPressDraggable<FoodItem>(
-      data: food,
-      delay: const Duration(milliseconds: 180),
-      onDragStarted: () => HapticFeedback.mediumImpact(),
-      feedback: Material(
-        color: Colors.transparent,
-        elevation: 12,
-        child: Container(
-          width: 130,
-          height: 130,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(22),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primary.withValues(alpha: 0.35),
-                blurRadius: 28,
-                spreadRadius: 4,
-                offset: const Offset(0, 12),
-              ),
-            ],
-            border: Border.all(color: AppColors.primary, width: 2),
-          ),
-          child: Stack(
-            children: [
-              Center(
-                child: Image.asset(food.image, fit: BoxFit.contain),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+    return GestureDetector(
+      onTap: onTap,
+      child: LongPressDraggable<FoodItem>(
+        data: food,
+        delay: const Duration(milliseconds: 160),
+        onDragStarted: () => HapticFeedback.mediumImpact(),
+        feedback: Material(
+          color: Colors.transparent,
+          child: SizedBox(
+            width: 105,
+            height: 105,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Soft realistic ambient drop shadow directly under floating food image
+                Container(
+                  width: 75,
+                  height: 75,
                   decoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    '\$${food.price.toStringAsFixed(2)}',
-                    style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.35),
+                        blurRadius: 22,
+                        spreadRadius: 3,
+                        offset: const Offset(0, 12),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                // Just the pure transparent food item image
+                Image.asset(
+                  food.image,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      childWhenDragging: Opacity(
-        opacity: 0.35,
-        child: cardContent,
-      ),
-      child: GestureDetector(
-        onTap: onTap,
+        childWhenDragging: Opacity(
+          opacity: 0.3,
+          child: cardContent,
+        ),
         child: cardContent,
       ),
     );
