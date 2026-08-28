@@ -5,6 +5,7 @@ import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/food_card.dart';
 import '../../shared/widgets/restaurant_card.dart';
 import '../food/food_detail_screen.dart';
@@ -26,27 +27,59 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header (Menu, Location, Notification)
-              _buildHeader(context),
+              AnimatedEntry(
+                direction: SlideDirection.fromTop,
+                delay: const Duration(milliseconds: 50),
+                duration: const Duration(milliseconds: 500),
+                child: _buildHeader(context),
+              ),
 
               const SizedBox(height: 16),
 
-              // 27% Extra Discount Banner
-              _buildPromoBanner(context),
+              // 27% Extra Discount Banner (drops from above)
+              AnimatedEntry(
+                direction: SlideDirection.fromTop,
+                delay: const Duration(milliseconds: 160),
+                duration: const Duration(milliseconds: 650),
+                curve: Curves.easeOutBack,
+                distance: 0.4,
+                enableScale: true,
+                child: _buildPromoBanner(context),
+              ),
 
               const SizedBox(height: 20),
 
-              // Search Bar & Filter Button
-              _buildSearchBar(context),
+              // Search Bar & Filter Button (slides in from left)
+              AnimatedEntry(
+                direction: SlideDirection.fromLeft,
+                delay: const Duration(milliseconds: 280),
+                duration: const Duration(milliseconds: 550),
+                distance: 0.35,
+                child: _buildSearchBar(context),
+              ),
 
               const SizedBox(height: 24),
 
-              // Popular Restaurants Horizontal Carousel
-              _buildPopularRestaurantsSection(context),
+              // Popular Restaurants Horizontal Carousel (slides in from left)
+              AnimatedEntry(
+                direction: SlideDirection.fromLeft,
+                delay: const Duration(milliseconds: 380),
+                duration: const Duration(milliseconds: 600),
+                distance: 0.4,
+                child: _buildPopularRestaurantsSection(context),
+              ),
 
               const SizedBox(height: 24),
 
-              // Popular Dishes 2-Column Grid
-              _buildPopularFoodSection(context),
+              // Popular Dishes 2-Column Grid (slides in from bottom)
+              AnimatedEntry(
+                direction: SlideDirection.fromBottom,
+                delay: const Duration(milliseconds: 480),
+                duration: const Duration(milliseconds: 600),
+                distance: 0.25,
+                enableScale: true,
+                child: _buildPopularFoodSection(context),
+              ),
             ],
           ),
         ),

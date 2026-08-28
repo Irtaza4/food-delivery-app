@@ -4,6 +4,7 @@ import '../../core/data/mock_data.dart';
 import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/food_card.dart';
 import '../../shared/widgets/restaurant_card.dart';
 import '../food/food_detail_screen.dart';
@@ -56,65 +57,87 @@ class FavoritesScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (favRestaurants.isNotEmpty) ...[
-                  Text(
-                    'Favorite Restaurants',
-                    style: AppTypography.heading2.copyWith(fontSize: 16),
-                  ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 245,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: favRestaurants.length,
-                      separatorBuilder: (context, index) => const SizedBox(width: 14),
-                      itemBuilder: (context, index) {
-
-                        final res = favRestaurants[index];
-                        return RestaurantCard(
-                          restaurant: res,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => RestaurantDetailScreen(restaurant: res),
-                              ),
-                            );
-                          },
-                        );
-                      },
+                  AnimatedEntry(
+                    direction: SlideDirection.fromLeft,
+                    delay: const Duration(milliseconds: 60),
+                    duration: const Duration(milliseconds: 500),
+                    distance: 0.35,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Favorite Restaurants',
+                          style: AppTypography.heading2.copyWith(fontSize: 16),
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          height: 255,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: favRestaurants.length,
+                            separatorBuilder: (context, index) => const SizedBox(width: 14),
+                            itemBuilder: (context, index) {
+                              final res = favRestaurants[index];
+                              return RestaurantCard(
+                                restaurant: res,
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => RestaurantDetailScreen(restaurant: res),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 24),
                 ],
 
                 if (favFoods.isNotEmpty) ...[
-                  Text(
-                    'Favorite Dishes',
-                    style: AppTypography.heading2.copyWith(fontSize: 16),
-                  ),
-                  const SizedBox(height: 12),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: favFoods.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 14,
-                      childAspectRatio: 0.72,
+                  AnimatedEntry(
+                    direction: SlideDirection.fromBottom,
+                    delay: const Duration(milliseconds: 160),
+                    duration: const Duration(milliseconds: 550),
+                    distance: 0.25,
+                    enableScale: true,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Favorite Dishes',
+                          style: AppTypography.heading2.copyWith(fontSize: 16),
+                        ),
+                        const SizedBox(height: 12),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: favFoods.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 14,
+                            childAspectRatio: 0.72,
+                          ),
+                          itemBuilder: (context, index) {
+                            final food = favFoods[index];
+                            return FoodCard(
+                              food: food,
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (_) => FoodDetailScreen(food: food),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    itemBuilder: (context, index) {
-                      final food = favFoods[index];
-                      return FoodCard(
-                        food: food,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => FoodDetailScreen(food: food),
-                            ),
-                          );
-                        },
-                      );
-                    },
                   ),
                 ],
               ],

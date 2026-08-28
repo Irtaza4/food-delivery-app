@@ -5,6 +5,7 @@ import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/quantity_stepper.dart';
 import '../../shared/widgets/rating_badge.dart';
 
@@ -175,19 +176,24 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 ),
 
                 // Dish Info Body
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title
-                      Text(
-                        widget.food.name,
-                        style: AppTypography.heading1.copyWith(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w800,
+                AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 150),
+                  duration: const Duration(milliseconds: 500),
+                  distance: 0.2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Title
+                        Text(
+                          widget.food.name,
+                          style: AppTypography.heading1.copyWith(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
-                      ),
                       const SizedBox(height: 8),
 
                       // Rating & Delivery info
@@ -362,6 +368,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ],
                   ),
                 ),
+              ),
               ],
             ),
           ),
@@ -371,13 +378,18 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
             left: 0,
             right: 0,
             bottom: 0,
-            child: Container(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: AppTheme.floatingShadow,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              ),
+            child: AnimatedEntry(
+              direction: SlideDirection.fromBottom,
+              delay: const Duration(milliseconds: 250),
+              duration: const Duration(milliseconds: 500),
+              distance: 0.3,
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: AppTheme.floatingShadow,
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                ),
               child: SafeArea(
                 top: false,
                 child: SizedBox(
@@ -443,6 +455,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                   ),
                 ),
               ),
+            ),
             ),
           ),
         ],

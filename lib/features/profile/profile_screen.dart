@@ -4,6 +4,7 @@ import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../onboarding/onboarding_screen.dart';
 
 
@@ -27,143 +28,159 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             // Profile Card
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-                boxShadow: AppTheme.cardShadow,
-                border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
-              ),
-              child: Row(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      'assets/images/driver_avatar.jpg',
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.cover,
+            AnimatedEntry(
+              direction: SlideDirection.fromTop,
+              delay: const Duration(milliseconds: 50),
+              duration: const Duration(milliseconds: 500),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                  boxShadow: AppTheme.cardShadow,
+                  border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
+                ),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        'assets/images/driver_avatar.jpg',
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'David Williamson',
-                          style: AppTypography.heading3.copyWith(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'david.williamson@flavor.app',
-                          style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 12),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '+1 (555) 382-9910',
-                          style: AppTypography.caption.copyWith(color: AppColors.accent, fontWeight: FontWeight.bold, fontSize: 11),
-                        ),
-                      ],
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'David Williamson',
+                            style: AppTypography.heading3.copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'david.williamson@flavor.app',
+                            style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 12),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '+1 (555) 382-9910',
+                            style: AppTypography.caption.copyWith(color: AppColors.accent, fontWeight: FontWeight.bold, fontSize: 11),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.edit_outlined, color: AppColors.primary, size: 18),
                     ),
-                    child: const Icon(Icons.edit_outlined, color: AppColors.primary, size: 18),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
             const SizedBox(height: 20),
 
             // Profile Options Menu
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-                boxShadow: AppTheme.cardShadow,
-                border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
-              ),
-              child: Column(
-                children: [
-                  _buildMenuItem(
-                    icon: Icons.person_outline_rounded,
-                    title: 'Personal Information',
-                    onTap: () {},
-                  ),
-                  _buildDivider(),
-                  Consumer<AppProvider>(
-                    builder: (context, provider, _) {
-                      return _buildMenuItem(
-                        icon: Icons.location_on_outlined,
-                        title: 'Saved Addresses',
-                        subtitle: provider.deliveryLocation,
-                        onTap: () {},
-                      );
-                    },
-                  ),
-                  _buildDivider(),
-                  _buildMenuItem(
-                    icon: Icons.credit_card_rounded,
-                    title: 'Payment Methods',
-                    subtitle: 'Mastercard •••• 4242',
-                    onTap: () {},
-                  ),
-                  _buildDivider(),
-                  _buildMenuItem(
-                    icon: Icons.notifications_none_rounded,
-                    title: 'Notifications',
-                    trailing: Switch.adaptive(
-                      value: true,
-                      activeTrackColor: AppColors.primary,
-                      onChanged: (val) {},
+            AnimatedEntry(
+              direction: SlideDirection.fromBottom,
+              delay: const Duration(milliseconds: 140),
+              duration: const Duration(milliseconds: 550),
+              distance: 0.25,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                  boxShadow: AppTheme.cardShadow,
+                  border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
+                ),
+                child: Column(
+                  children: [
+                    _buildMenuItem(
+                      icon: Icons.person_outline_rounded,
+                      title: 'Personal Information',
+                      onTap: () {},
                     ),
-                  ),
-
-                  _buildDivider(),
-                  _buildMenuItem(
-                    icon: Icons.help_outline_rounded,
-                    title: 'Help & Support',
-                    onTap: () {},
-                  ),
-                  _buildDivider(),
-                  _buildMenuItem(
-                    icon: Icons.privacy_tip_outlined,
-                    title: 'Terms & Privacy',
-                    onTap: () {},
-                  ),
-                ],
+                    _buildDivider(),
+                    Consumer<AppProvider>(
+                      builder: (context, provider, _) {
+                        return _buildMenuItem(
+                          icon: Icons.location_on_outlined,
+                          title: 'Saved Addresses',
+                          subtitle: provider.deliveryLocation,
+                          onTap: () {},
+                        );
+                      },
+                    ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.credit_card_rounded,
+                      title: 'Payment Methods',
+                      subtitle: 'Mastercard •••• 4242',
+                      onTap: () {},
+                    ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.notifications_none_rounded,
+                      title: 'Notifications',
+                      trailing: Switch.adaptive(
+                        value: true,
+                        activeTrackColor: AppColors.primary,
+                        onChanged: (val) {},
+                      ),
+                    ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.help_outline_rounded,
+                      title: 'Help & Support',
+                      onTap: () {},
+                    ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.privacy_tip_outlined,
+                      title: 'Terms & Privacy',
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
 
             const SizedBox(height: 20),
 
             // Log Out Button
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-                boxShadow: AppTheme.cardShadow,
-                border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
-              ),
-              child: _buildMenuItem(
-                icon: Icons.logout_rounded,
-                iconColor: AppColors.primary,
-                title: 'Log Out',
-                textColor: AppColors.primary,
-                onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-                    (route) => false,
-                  );
-                },
+            AnimatedEntry(
+              direction: SlideDirection.fromBottom,
+              delay: const Duration(milliseconds: 240),
+              duration: const Duration(milliseconds: 500),
+              distance: 0.3,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                  boxShadow: AppTheme.cardShadow,
+                  border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
+                ),
+                child: _buildMenuItem(
+                  icon: Icons.logout_rounded,
+                  iconColor: AppColors.primary,
+                  title: 'Log Out',
+                  textColor: AppColors.primary,
+                  onTap: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+                      (route) => false,
+                    );
+                  },
+                ),
               ),
             ),
           ],

@@ -25,9 +25,26 @@ class MainNavScaffold extends StatelessWidget {
 
         return Scaffold(
           extendBody: true,
-          body: IndexedStack(
-            index: provider.currentNavIndex,
-            children: screens,
+          body: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 280),
+            switchInCurve: Curves.easeOutCubic,
+            switchOutCurve: Curves.easeInCubic,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0.03, 0),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
+            child: KeyedSubtree(
+              key: ValueKey<int>(provider.currentNavIndex),
+              child: screens[provider.currentNavIndex],
+            ),
           ),
           bottomNavigationBar: CustomBottomNavBar(
             currentIndex: provider.currentNavIndex,

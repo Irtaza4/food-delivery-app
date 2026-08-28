@@ -31,5 +31,26 @@ void main() {
     // Tab should have changed
     expect(find.byType(CustomBottomNavBar), findsOneWidget);
   });
+
+  testWidgets('Restaurant detail screen opens and category changes smoothly', (WidgetTester tester) async {
+    await tester.pumpWidget(const FoodDeliveryApp());
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
+
+    // Tap See All or first restaurant
+    await tester.tap(find.text('See All').first);
+    await tester.pumpAndSettle();
+
+    // Verify restaurant detail screen elements
+    expect(find.text('Delivery Time'), findsOneWidget);
+    expect(find.text('Popular'), findsOneWidget);
+
+    // Tap category tab
+    if (find.text('Burger').evaluate().isNotEmpty) {
+      await tester.tap(find.text('Burger').first);
+      await tester.pumpAndSettle();
+    }
+  });
 }
+
 

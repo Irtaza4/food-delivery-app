@@ -134,7 +134,7 @@ class FoodCard extends StatelessWidget {
             const SizedBox(height: 8),
             // Price
             Text(
-              '${food.price.toStringAsFixed(2)}\$',
+              '\$${food.price.toStringAsFixed(2)}',
               style: AppTypography.heading3.copyWith(
                 fontSize: 15,
                 fontWeight: FontWeight.w800,

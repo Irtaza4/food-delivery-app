@@ -4,6 +4,7 @@ import '../../core/models/food_item.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/food_card.dart';
 import '../food/food_detail_screen.dart';
 
@@ -79,55 +80,61 @@ class _CategoryGridScreenState extends State<CategoryGridScreen> {
       body: Column(
         children: [
           // Filter and Sort Chips Row matching screenshots
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  // Filter icon chip
-                  GestureDetector(
-                    onTap: () => _showFilterSheet(context),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.border),
-                        boxShadow: AppTheme.cardShadow,
+          AnimatedEntry(
+            direction: SlideDirection.fromLeft,
+            delay: const Duration(milliseconds: 50),
+            duration: const Duration(milliseconds: 450),
+            distance: 0.25,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    // Filter icon chip
+                    GestureDetector(
+                      onTap: () => _showFilterSheet(context),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.border),
+                          boxShadow: AppTheme.cardShadow,
+                        ),
+                        child: const Icon(Icons.tune_rounded, size: 18, color: AppColors.textPrimary),
                       ),
-                      child: const Icon(Icons.tune_rounded, size: 18, color: AppColors.textPrimary),
                     ),
-                  ),
-                  const SizedBox(width: 8),
+                    const SizedBox(width: 8),
 
-                  // Sort dropdown chip
-                  _buildDropdownChip(
-                    label: 'Sort',
-                    currentValue: _selectedSort,
-                    options: ['Popular', 'Rating', 'Price: Low to High'],
-                    onSelected: (val) => setState(() => _selectedSort = val),
-                  ),
-                  const SizedBox(width: 8),
+                    // Sort dropdown chip
+                    _buildDropdownChip(
+                      label: 'Sort',
+                      currentValue: _selectedSort,
+                      options: ['Popular', 'Rating', 'Price: Low to High'],
+                      onSelected: (val) => setState(() => _selectedSort = val),
+                    ),
+                    const SizedBox(width: 8),
 
-                  // Offer dropdown chip
-                  _buildDropdownChip(
-                    label: 'Offer',
-                    currentValue: _selectedOffer,
-                    options: ['All', '27% Off', '50% Off', 'Free Delivery'],
-                    onSelected: (val) => setState(() => _selectedOffer = val),
-                  ),
-                  const SizedBox(width: 8),
+                    // Offer dropdown chip
+                    _buildDropdownChip(
+                      label: 'Offer',
+                      currentValue: _selectedOffer,
+                      options: ['All', '27% Off', '50% Off', 'Free Delivery'],
+                      onSelected: (val) => setState(() => _selectedOffer = val),
+                    ),
+                    const SizedBox(width: 8),
 
-                  // Price dropdown chip
-                  _buildDropdownChip(
-                    label: 'Price',
-                    currentValue: _selectedPriceFilter,
-                    options: ['All', 'Under \$4', 'Under \$6'],
-                    onSelected: (val) => setState(() => _selectedPriceFilter = val),
-                  ),
-                ],
+                    // Price dropdown chip
+                    _buildDropdownChip(
+                      label: 'Price',
+                      currentValue: _selectedPriceFilter,
+                      options: ['All', 'Under \$4', 'Under \$6'],
+                      onSelected: (val) => setState(() => _selectedPriceFilter = val),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -164,15 +171,22 @@ class _CategoryGridScreenState extends State<CategoryGridScreen> {
                     ),
                     itemBuilder: (context, index) {
                       final food = items[index];
-                      return FoodCard(
-                        food: food,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => FoodDetailScreen(food: food),
-                            ),
-                          );
-                        },
+                      return AnimatedEntry(
+                        direction: SlideDirection.fromBottom,
+                        delay: Duration(milliseconds: 60 * (index % 6)),
+                        duration: const Duration(milliseconds: 450),
+                        distance: 0.2,
+                        enableScale: true,
+                        child: FoodCard(
+                          food: food,
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => FoodDetailScreen(food: food),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     },
                   ),
