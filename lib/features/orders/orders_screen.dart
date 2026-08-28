@@ -265,13 +265,17 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
               // Restaurant & items
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
+                  Container(
+                    width: 54,
+                    height: 54,
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF8F6F4),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Image.asset(
-                      order.items.isNotEmpty ? order.items.first.food.image : 'assets/images/burger_hero.jpg',
-                      width: 54,
-                      height: 54,
-                      fit: BoxFit.cover,
+                      order.items.isNotEmpty ? order.items.first.food.image : 'assets/images/burger_hero.png',
+                      fit: BoxFit.contain,
                     ),
                   ),
                   const SizedBox(width: 14),

@@ -29,10 +29,10 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
     _availableAddOns = widget.food.addOns.isNotEmpty
         ? widget.food.addOns
         : [
-            AddOn(id: 'extra_cheese', name: 'Extra Cheese', price: 1.00, image: 'assets/images/beef_spicy_burger.jpg'),
-            AddOn(id: 'crispy_fries', name: 'Crispy Fries', price: 2.50, image: 'assets/images/bbq_burger.jpg'),
-            AddOn(id: 'iced_drink', name: 'Cold Beverage', price: 1.50, image: 'assets/images/vanilla_icecream.jpg'),
-            AddOn(id: 'spicy_sauce', name: 'Spicy Dip', price: 0.75, image: 'assets/images/chicken_rice.jpg'),
+            AddOn(id: 'extra_cheese', name: 'Extra Cheese', price: 1.00, image: 'assets/images/beef_spicy_burger.png'),
+            AddOn(id: 'crispy_fries', name: 'Crispy Fries', price: 2.50, image: 'assets/images/bbq_burger.png'),
+            AddOn(id: 'iced_drink', name: 'Cold Beverage', price: 1.50, image: 'assets/images/vanilla_icecream.png'),
+            AddOn(id: 'spicy_sauce', name: 'Spicy Dip', price: 0.75, image: 'assets/images/chicken_rice.png'),
           ];
   }
 
@@ -137,25 +137,36 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       child: Center(
                         child: Hero(
                           tag: 'food_${widget.food.id}',
-                          child: Container(
-                            height: 280,
-                            constraints: const BoxConstraints(maxWidth: 320),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.2),
-                                  blurRadius: 30,
-                                  offset: const Offset(0, 15),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Ambient soft shadow under food
+                              Container(
+                                width: 220,
+                                height: 220,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(alpha: 0.22),
+                                      blurRadius: 36,
+                                      spreadRadius: 4,
+                                      offset: const Offset(0, 16),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: ClipOval(
-                              child: Image.asset(
-                                widget.food.image,
-                                fit: BoxFit.cover,
                               ),
-                            ),
+                              // Floating transparent food image
+                              Container(
+                                height: 280,
+                                constraints: const BoxConstraints(maxWidth: 320),
+                                padding: const EdgeInsets.all(8),
+                                child: Image.asset(
+                                  widget.food.image,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

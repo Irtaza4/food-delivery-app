@@ -37,17 +37,23 @@ class FoodCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(AppTheme.radiusMd),
-                  child: AspectRatio(
-                    aspectRatio: 1.25,
-                    child: Image.asset(
-                      food.image,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.background,
-                          child: const Icon(Icons.fastfood, color: AppColors.textMuted, size: 36),
-                        );
-                      },
+                  child: Container(
+                    color: const Color(0xFFF8F6F4),
+                    child: AspectRatio(
+                      aspectRatio: 1.25,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Image.asset(
+                          food.image,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: AppColors.background,
+                              child: const Icon(Icons.fastfood, color: AppColors.textMuted, size: 36),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

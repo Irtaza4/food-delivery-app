@@ -18,17 +18,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final List<Map<String, String>> _pages = [
     {
       'title': 'Step Into\nFlavor World',
-      'image': 'assets/images/burger_hero.jpg',
+      'image': 'assets/images/burger_hero.png',
       'tagline': 'Discover mouth-watering gourmet dishes and fast delivery.',
     },
     {
       'title': 'Dive Into\nPure Flavor',
-      'image': 'assets/images/pizza_hero.jpg',
+      'image': 'assets/images/pizza_hero.png',
       'tagline': 'Hot artisan pizzas crafted fresh with premium ingredients.',
     },
     {
       'title': 'Flavor\nAwaits You',
-      'image': 'assets/images/dessert_hero.jpg',
+      'image': 'assets/images/dessert_hero.png',
       'tagline': 'Sweet treats, sundaes and refreshing beverages on demand.',
     },
   ];
@@ -100,27 +100,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      // Large visual food asset
+                      // Floating visual food asset with soft depth
                       Expanded(
                         child: Center(
-                          child: Container(
-                            constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: 0.25),
-                                  blurRadius: 30,
-                                  offset: const Offset(0, 15),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Ambient soft underglow shadow
+                              Container(
+                                width: 220,
+                                height: 220,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withValues(alpha: 0.28),
+                                      blurRadius: 40,
+                                      spreadRadius: 6,
+                                      offset: const Offset(0, 18),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            child: ClipOval(
-                              child: Image.asset(
-                                item['image']!,
-                                fit: BoxFit.cover,
                               ),
-                            ),
+                              // Floating transparent food image
+                              Container(
+                                constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
+                                padding: const EdgeInsets.all(8),
+                                child: Image.asset(
+                                  item['image']!,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

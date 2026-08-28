@@ -6,12 +6,12 @@ import '../models/order.dart';
 
 class MockData {
   static const List<FoodCategory> categories = [
-    FoodCategory(id: 'burger', name: 'Burger', iconEmoji: '🍔', imageAsset: 'assets/images/burger_hero.jpg'),
-    FoodCategory(id: 'seafood', name: 'Sea Food', iconEmoji: '🦐', imageAsset: 'assets/images/pizza_hero.jpg'),
-    FoodCategory(id: 'dessert', name: 'Dessert', iconEmoji: '🍰', imageAsset: 'assets/images/dessert_hero.jpg'),
-    FoodCategory(id: 'steak', name: 'Steak', iconEmoji: '🥩', imageAsset: 'assets/images/bbq_burger.jpg'),
-    FoodCategory(id: 'pizza', name: 'Pizza', iconEmoji: '🍕', imageAsset: 'assets/images/pizza_hero.jpg'),
-    FoodCategory(id: 'chicken', name: 'Chicken', iconEmoji: '🍗', imageAsset: 'assets/images/fried_chicken.jpg'),
+    FoodCategory(id: 'burger', name: 'Burger', iconEmoji: '🍔', imageAsset: 'assets/images/burger_hero.png'),
+    FoodCategory(id: 'seafood', name: 'Sea Food', iconEmoji: '🦐', imageAsset: 'assets/images/pizza_hero.png'),
+    FoodCategory(id: 'dessert', name: 'Dessert', iconEmoji: '🍰', imageAsset: 'assets/images/dessert_hero.png'),
+    FoodCategory(id: 'steak', name: 'Steak', iconEmoji: '🥩', imageAsset: 'assets/images/bbq_burger.png'),
+    FoodCategory(id: 'pizza', name: 'Pizza', iconEmoji: '🍕', imageAsset: 'assets/images/pizza_hero.png'),
+    FoodCategory(id: 'chicken', name: 'Chicken', iconEmoji: '🍗', imageAsset: 'assets/images/fried_chicken.png'),
   ];
 
   static List<Restaurant> restaurants = [
@@ -35,7 +35,7 @@ class MockData {
       id: 'spice_craft',
       name: 'SpiceCraft',
       logo: 'S',
-      bannerImage: 'assets/images/fried_chicken.jpg',
+      bannerImage: 'assets/images/fried_chicken.png',
       rating: 4.9,
       followers: '180K',
       productsCount: 3120,
@@ -51,7 +51,7 @@ class MockData {
       id: 'byte_bistro',
       name: 'Byte Bistro',
       logo: 'B',
-      bannerImage: 'assets/images/bbq_burger.jpg',
+      bannerImage: 'assets/images/bbq_burger.png',
       rating: 4.8,
       followers: '95K',
       productsCount: 1450,
@@ -67,7 +67,7 @@ class MockData {
       id: 'asian_kitchen',
       name: 'Ramen & Asian Kitchen',
       logo: 'A',
-      bannerImage: 'assets/images/chicken_rice.jpg',
+      bannerImage: 'assets/images/chicken_rice.png',
       rating: 4.9,
       followers: '120K',
       productsCount: 2200,
@@ -94,15 +94,15 @@ class MockData {
       reviewsCount: 100,
       deliveryTime: '30 Min',
       categoryId: 'burger',
-      image: 'assets/images/beef_spicy_burger.jpg',
+      image: 'assets/images/beef_spicy_burger.png',
       portion: '320g (Double Stack)',
       isPopular: true,
       isFeatured: true,
       addOns: [
-        AddOn(id: 'add_cheese', name: 'Extra Cheese', price: 1.00, image: 'assets/images/beef_spicy_burger.jpg'),
-        AddOn(id: 'add_fries', name: 'Crispy Fries', price: 2.50, image: 'assets/images/bbq_burger.jpg'),
-        AddOn(id: 'add_drink', name: 'Iced Cola', price: 1.50, image: 'assets/images/vanilla_icecream.jpg'),
-        AddOn(id: 'add_sauce', name: 'Spicy Dip', price: 0.75, image: 'assets/images/chicken_rice.jpg'),
+        AddOn(id: 'add_cheese', name: 'Extra Cheese', price: 1.00, image: 'assets/images/beef_spicy_burger.png'),
+        AddOn(id: 'add_fries', name: 'Crispy Fries', price: 2.50, image: 'assets/images/bbq_burger.png'),
+        AddOn(id: 'add_drink', name: 'Iced Cola', price: 1.50, image: 'assets/images/vanilla_icecream.png'),
+        AddOn(id: 'add_sauce', name: 'Spicy Dip', price: 0.75, image: 'assets/images/chicken_rice.png'),
       ],
     ),
     FoodItem(
@@ -117,7 +117,7 @@ class MockData {
       reviewsCount: 88,
       deliveryTime: '20 Min',
       categoryId: 'burger',
-      image: 'assets/images/burger_hero.jpg',
+      image: 'assets/images/burger_hero.png',
       portion: '250g (1 pcs)',
       isPopular: true,
       addOns: [
@@ -137,7 +137,7 @@ class MockData {
       reviewsCount: 142,
       deliveryTime: '25 Min',
       categoryId: 'burger',
-      image: 'assets/images/bbq_burger.jpg',
+      image: 'assets/images/bbq_burger.png',
       portion: '280g (1 pcs)',
       isPopular: true,
       addOns: [
@@ -157,7 +157,7 @@ class MockData {
       reviewsCount: 215,
       deliveryTime: '15 Min',
       categoryId: 'chicken',
-      image: 'assets/images/fried_chicken.jpg',
+      image: 'assets/images/fried_chicken.png',
       portion: '400g (4 pcs)',
       isPopular: true,
       isFeatured: true,
@@ -178,7 +178,7 @@ class MockData {
       reviewsCount: 65,
       deliveryTime: '15 Min',
       categoryId: 'dessert',
-      image: 'assets/images/vanilla_icecream.jpg',
+      image: 'assets/images/vanilla_icecream.png',
       portion: '250g (1 Cap)',
       isPopular: true,
       addOns: [
@@ -198,7 +198,7 @@ class MockData {
       reviewsCount: 78,
       deliveryTime: '20 Min',
       categoryId: 'burger',
-      image: 'assets/images/hotdog_platter.jpg',
+      image: 'assets/images/hotdog_platter.png',
       portion: '250g (1 pcs)',
       isPopular: true,
       addOns: [
@@ -218,7 +218,7 @@ class MockData {
       reviewsCount: 190,
       deliveryTime: '25 Min',
       categoryId: 'chicken',
-      image: 'assets/images/chicken_rice.jpg',
+      image: 'assets/images/chicken_rice.png',
       portion: '350g (1 Plate)',
       isPopular: true,
       addOns: [
@@ -238,7 +238,7 @@ class MockData {
       reviewsCount: 130,
       deliveryTime: '25 Min',
       categoryId: 'pizza',
-      image: 'assets/images/pizza_hero.jpg',
+      image: 'assets/images/pizza_hero.png',
       portion: '10 inch (Medium)',
       isPopular: true,
       addOns: [

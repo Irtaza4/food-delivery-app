@@ -29,11 +29,10 @@ class OrderConfirmedDialog extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppColors.primary.withValues(alpha: 0.05),
               ),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/order_box.jpg',
-                  fit: BoxFit.cover,
-                ),
+              padding: const EdgeInsets.all(12),
+              child: Image.asset(
+                'assets/images/order_box.png',
+                fit: BoxFit.contain,
               ),
             ),
             const SizedBox(height: 20),

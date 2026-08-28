@@ -249,13 +249,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 4,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.asset(
-                          'assets/images/burger_hero.jpg',
-                          fit: BoxFit.cover,
-                          height: 110,
-                        ),
+                      child: Image.asset(
+                        'assets/images/burger_hero.png',
+                        fit: BoxFit.contain,
+                        height: 110,
                       ),
                     ),
                   ],

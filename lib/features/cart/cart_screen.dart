@@ -130,13 +130,17 @@ class _CartScreenState extends State<CartScreen> {
                       child: Row(
                         children: [
                           // Food Image
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+                          Container(
+                            width: 72,
+                            height: 72,
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF8F6F4),
+                              borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+                            ),
                             child: Image.asset(
                               item.food.image,
-                              width: 72,
-                              height: 72,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           ),
                           const SizedBox(width: 14),
