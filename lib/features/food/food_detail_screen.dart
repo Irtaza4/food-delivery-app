@@ -136,29 +136,29 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       left: 20,
                       right: 20,
                       child: Center(
-                        child: Hero(
-                          tag: 'food_${widget.food.id}',
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              // Ambient soft shadow under food
-                              Container(
-                                width: 220,
-                                height: 220,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.22),
-                                      blurRadius: 36,
-                                      spreadRadius: 4,
-                                      offset: const Offset(0, 16),
-                                    ),
-                                  ],
-                                ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // Ambient soft shadow under food
+                            Container(
+                              width: 220,
+                              height: 220,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.22),
+                                    blurRadius: 36,
+                                    spreadRadius: 4,
+                                    offset: const Offset(0, 16),
+                                  ),
+                                ],
                               ),
-                              // Floating transparent food image
-                              Container(
+                            ),
+                            // Floating transparent food image
+                            Hero(
+                              tag: 'food_img_${widget.food.id}',
+                              child: Container(
                                 height: 280,
                                 constraints: const BoxConstraints(maxWidth: 320),
                                 padding: const EdgeInsets.all(8),
@@ -167,8 +167,8 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                                   fit: BoxFit.contain,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

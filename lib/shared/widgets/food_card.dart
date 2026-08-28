@@ -43,15 +43,18 @@ class FoodCard extends StatelessWidget {
                       aspectRatio: 1.25,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
-                        child: Image.asset(
-                          food.image,
-                          fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: AppColors.background,
-                              child: const Icon(Icons.fastfood, color: AppColors.textMuted, size: 36),
-                            );
-                          },
+                        child: Hero(
+                          tag: 'food_img_${food.id}',
+                          child: Image.asset(
+                            food.image,
+                            fit: BoxFit.contain,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: AppColors.background,
+                                child: const Icon(Icons.fastfood, color: AppColors.textMuted, size: 36),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),

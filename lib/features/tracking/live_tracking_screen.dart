@@ -5,6 +5,7 @@ import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/interactive_map.dart';
 
 class LiveTrackingScreen extends StatefulWidget {
@@ -82,19 +83,24 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
 
               // Bottom Details Sheet (Driver Info & Status Timeline)
               Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-                  ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Driver Information Row matching screenshot
-                        Row(
+                child: AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 100),
+                  duration: const Duration(milliseconds: 500),
+                  distance: 0.25,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                    ),
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Driver Information Row matching screenshot
+                          Row(
                           children: [
                             // Driver Avatar Image
                             ClipRRect(
@@ -312,6 +318,7 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen> {
                     ),
                   ),
                 ),
+              ),
               ),
             ],
           );

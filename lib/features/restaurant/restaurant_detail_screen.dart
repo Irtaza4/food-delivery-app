@@ -6,6 +6,7 @@ import '../../core/data/mock_data.dart';
 import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/food_card.dart';
 import '../food/food_detail_screen.dart';
 
@@ -129,12 +130,15 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.asset(
-                    widget.restaurant.bannerImage,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => Container(
-                      color: AppColors.primary,
-                      child: const Icon(Icons.restaurant, color: Colors.white54, size: 60),
+                  Hero(
+                    tag: 'restaurant_banner_${widget.restaurant.id}',
+                    child: Image.asset(
+                      widget.restaurant.bannerImage,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: AppColors.primary,
+                        child: const Icon(Icons.restaurant, color: Colors.white54, size: 60),
+                      ),
                     ),
                   ),
                   // Dark gradient protection for status bar and actions
@@ -159,22 +163,27 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
 
           // Restaurant Info & Details Card
           SliverToBoxAdapter(
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x0C000000),
-                    blurRadius: 16,
-                    offset: Offset(0, -4),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child: AnimatedEntry(
+              direction: SlideDirection.fromBottom,
+              delay: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 500),
+              distance: 0.2,
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x0C000000),
+                      blurRadius: 16,
+                      offset: Offset(0, -4),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                   // Title Row with Logo Badge
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -345,6 +354,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               ),
             ),
           ),
+          ),
 
           // Sticky Category Filter Tabs Header
           SliverPersistentHeader(
@@ -381,15 +391,22 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         final food = filteredFoods[index];
-                        return FoodCard(
-                          food: food,
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => FoodDetailScreen(food: food),
-                              ),
-                            );
-                          },
+                        return AnimatedEntry(
+                          direction: SlideDirection.fromBottom,
+                          delay: Duration(milliseconds: 50 * (index % 6)),
+                          duration: const Duration(milliseconds: 450),
+                          distance: 0.2,
+                          enableScale: true,
+                          child: FoodCard(
+                            food: food,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => FoodDetailScreen(food: food),
+                                ),
+                              );
+                            },
+                          ),
                         );
                       },
                       childCount: filteredFoods.length,

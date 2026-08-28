@@ -4,6 +4,7 @@ import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/custom_text_field.dart';
 import '../confirmation/order_confirmed_dialog.dart';
 
@@ -64,72 +65,88 @@ class _PaymentCheckoutScreenState extends State<PaymentCheckoutScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Payment Methods Selection Cards
-                _buildPaymentMethodTile(
-                  index: 0,
-                  title: 'Pay with PayPal',
-                  icon: Icons.account_balance_wallet_rounded,
-                  iconColor: const Color(0xFF003087),
-                ),
-                const SizedBox(height: 12),
-                _buildPaymentMethodTile(
-                  index: 1,
-                  title: 'Credit & Debit Cards',
-                  icon: Icons.credit_card_rounded,
-                  iconColor: AppColors.primary,
-                  trailingLogos: true,
+                AnimatedEntry(
+                  direction: SlideDirection.fromLeft,
+                  delay: const Duration(milliseconds: 50),
+                  duration: const Duration(milliseconds: 450),
+                  distance: 0.25,
+                  child: Column(
+                    children: [
+                      _buildPaymentMethodTile(
+                        index: 0,
+                        title: 'Pay with PayPal',
+                        icon: Icons.account_balance_wallet_rounded,
+                        iconColor: const Color(0xFF003087),
+                      ),
+                      const SizedBox(height: 12),
+                      _buildPaymentMethodTile(
+                        index: 1,
+                        title: 'Credit & Debit Cards',
+                        icon: Icons.credit_card_rounded,
+                        iconColor: AppColors.primary,
+                        trailingLogos: true,
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Card Input Details Container
                 if (_selectedPaymentMethod == 1) ...[
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(AppTheme.radiusLg),
-                      boxShadow: AppTheme.cardShadow,
-                      border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
-                    ),
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          label: 'Cardholder Name',
-                          hintText: 'Full Name on Card',
-                          controller: _nameController,
-                        ),
-                        const SizedBox(height: 14),
-                        CustomTextField(
-                          label: 'Card Number',
-                          hintText: '•••• •••• •••• ••••',
-                          controller: _cardController,
-                          keyboardType: TextInputType.number,
-                          suffixIcon: const Icon(Icons.credit_card, color: AppColors.textMuted),
-                        ),
-                        const SizedBox(height: 14),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: CustomTextField(
-                                label: 'MM/YY',
-                                hintText: 'MM/YY',
-                                controller: _expiryController,
-                                keyboardType: TextInputType.datetime,
+                  AnimatedEntry(
+                    direction: SlideDirection.fromBottom,
+                    delay: const Duration(milliseconds: 140),
+                    duration: const Duration(milliseconds: 450),
+                    distance: 0.2,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+                        boxShadow: AppTheme.cardShadow,
+                        border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
+                      ),
+                      child: Column(
+                        children: [
+                          CustomTextField(
+                            label: 'Cardholder Name',
+                            hintText: 'Full Name on Card',
+                            controller: _nameController,
+                          ),
+                          const SizedBox(height: 14),
+                          CustomTextField(
+                            label: 'Card Number',
+                            hintText: '•••• •••• •••• ••••',
+                            controller: _cardController,
+                            keyboardType: TextInputType.number,
+                            suffixIcon: const Icon(Icons.credit_card, color: AppColors.textMuted),
+                          ),
+                          const SizedBox(height: 14),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: CustomTextField(
+                                  label: 'MM/YY',
+                                  hintText: 'MM/YY',
+                                  controller: _expiryController,
+                                  keyboardType: TextInputType.datetime,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: CustomTextField(
-                                label: 'CVC',
-                                hintText: 'CVC',
-                                controller: _cvcController,
-                                keyboardType: TextInputType.number,
-                                obscureText: true,
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: CustomTextField(
+                                  label: 'CVC',
+                                  hintText: 'CVC',
+                                  controller: _cvcController,
+                                  keyboardType: TextInputType.number,
+                                  obscureText: true,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -137,97 +154,114 @@ class _PaymentCheckoutScreenState extends State<PaymentCheckoutScreen> {
                 const SizedBox(height: 16),
 
                 // Terms of use Checkbox
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: Checkbox(
-                        value: _termsAccepted,
-                        activeColor: AppColors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                        onChanged: (val) => setState(() => _termsAccepted = val ?? false),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'I have read and accept the terms of use, rules of delivery and privacy policy',
-                        style: AppTypography.caption.copyWith(
-                          color: AppColors.textLight,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          height: 1.3,
+                AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 400),
+                  distance: 0.15,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: Checkbox(
+                          value: _termsAccepted,
+                          activeColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          onChanged: (val) => setState(() => _termsAccepted = val ?? false),
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          'I have read and accept the terms of use, rules of delivery and privacy policy',
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.textLight,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 24),
 
                 // Delivery Address with Map Thumbnail Card
-                Text(
-                  'Delivery Address',
-                  style: AppTypography.heading3.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(AppTheme.radiusLg),
-                    boxShadow: AppTheme.cardShadow,
-                    border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
-                  ),
-                  child: Row(
+                AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 260),
+                  duration: const Duration(milliseconds: 450),
+                  distance: 0.2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Mini Map Thumbnail
+                      Text(
+                        'Delivery Address',
+                        style: AppTypography.heading3.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 10),
                       Container(
-                        width: 70,
-                        height: 70,
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFE2E8F0),
-                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+                          boxShadow: AppTheme.cardShadow,
+                          border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
                         ),
-                        child: Stack(
+                        child: Row(
                           children: [
-                            CustomPaint(
-                              size: const Size(70, 70),
-                              painter: _MiniMapPainter(),
+                            // Mini Map Thumbnail
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFE2E8F0),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Stack(
+                                children: [
+                                  CustomPaint(
+                                    size: const Size(70, 70),
+                                    painter: _MiniMapPainter(),
+                                  ),
+                                  const Center(
+                                    child: Icon(Icons.location_on_rounded, color: AppColors.primary, size: 24),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const Center(
-                              child: Icon(Icons.location_on_rounded, color: AppColors.primary, size: 24),
+                            const SizedBox(width: 14),
+
+                            // Address info
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Home',
+                                    style: AppTypography.heading3.copyWith(fontSize: 14, fontWeight: FontWeight.w700),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    provider.deliveryLocation,
+                                    style: AppTypography.bodySmall.copyWith(fontSize: 12, color: AppColors.textLight),
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            // Change action
+                            TextButton(
+                              onPressed: () {},
+                              child: const Text('Change', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 12)),
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(width: 14),
-
-                      // Address info
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Home',
-                              style: AppTypography.heading3.copyWith(fontSize: 14, fontWeight: FontWeight.w700),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              provider.deliveryLocation,
-                              style: AppTypography.bodySmall.copyWith(fontSize: 12, color: AppColors.textLight),
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // Change action
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text('Change', style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w700, fontSize: 12)),
                       ),
                     ],
                   ),
@@ -236,66 +270,79 @@ class _PaymentCheckoutScreenState extends State<PaymentCheckoutScreen> {
                 const SizedBox(height: 24),
 
                 // Price Summary Row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Total Amount',
-                          style: AppTypography.caption.copyWith(color: AppColors.textMuted, fontSize: 12),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          '\$${provider.grandTotal.toStringAsFixed(2)}',
-                          style: AppTypography.display.copyWith(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w900,
-                            color: AppColors.textPrimary,
+                AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 320),
+                  duration: const Duration(milliseconds: 450),
+                  distance: 0.2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Total Amount',
+                            style: AppTypography.caption.copyWith(color: AppColors.textMuted, fontSize: 12),
                           ),
-                        ),
-                      ],
-                    ),
-                    Text(
-                      'See price details',
-                      style: AppTypography.caption.copyWith(color: AppColors.accent, fontWeight: FontWeight.w700),
-                    ),
-                  ],
+                          const SizedBox(height: 2),
+                          Text(
+                            '\$${provider.grandTotal.toStringAsFixed(2)}',
+                            style: AppTypography.display.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w900,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'See price details',
+                        style: AppTypography.caption.copyWith(color: AppColors.accent, fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Place Order Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 54,
-                  child: ElevatedButton(
-                    onPressed: _termsAccepted
-                        ? () {
-                            final order = provider.placeOrder(
-                              deliveryAddress: provider.deliveryLocation,
-                              paymentMethod: _selectedPaymentMethod == 1 ? 'Credit Card' : 'PayPal',
-                            );
+                AnimatedEntry(
+                  direction: SlideDirection.fromBottom,
+                  delay: const Duration(milliseconds: 380),
+                  duration: const Duration(milliseconds: 450),
+                  distance: 0.25,
+                  enableScale: true,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 54,
+                    child: ElevatedButton(
+                      onPressed: _termsAccepted
+                          ? () {
+                              final order = provider.placeOrder(
+                                deliveryAddress: provider.deliveryLocation,
+                                paymentMethod: _selectedPaymentMethod == 1 ? 'Credit Card' : 'PayPal',
+                              );
 
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (_) => OrderConfirmedDialog(order: order),
-                            );
-                          }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.textPrimary,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (_) => OrderConfirmedDialog(order: order),
+                              );
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.textPrimary,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Place Order · \$${provider.grandTotal.toStringAsFixed(2)}',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
+                      child: Text(
+                        'Place Order · \$${provider.grandTotal.toStringAsFixed(2)}',
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

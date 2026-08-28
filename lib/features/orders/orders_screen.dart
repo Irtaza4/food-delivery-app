@@ -5,6 +5,7 @@ import '../../core/theme/app_colors.dart';
 
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
+import '../../shared/widgets/animated_entry.dart';
 import '../tracking/live_tracking_screen.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -98,17 +99,23 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-          boxShadow: AppTheme.cardShadow,
-          border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      child: AnimatedEntry(
+        direction: SlideDirection.fromBottom,
+        delay: const Duration(milliseconds: 60),
+        duration: const Duration(milliseconds: 500),
+        distance: 0.25,
+        enableScale: true,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+            boxShadow: AppTheme.cardShadow,
+            border: Border.all(color: AppColors.border.withValues(alpha: 0.8)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             // Order Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,6 +217,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
           ],
         ),
       ),
+      ),
     );
   }
 
@@ -226,105 +234,111 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
       itemCount: past.length,
       separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
-
         final order = past[index];
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(AppTheme.radiusLg),
-            boxShadow: AppTheme.cardShadow,
-            border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Top row: Date & Delivered badge
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Oct 02 • 09:30pm',
-                    style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 12),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF22C55E).withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
+        return AnimatedEntry(
+          direction: SlideDirection.fromBottom,
+          delay: Duration(milliseconds: 60 * index),
+          duration: const Duration(milliseconds: 450),
+          distance: 0.2,
+          enableScale: true,
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+              boxShadow: AppTheme.cardShadow,
+              border: Border.all(color: AppColors.border.withValues(alpha: 0.6)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Top row: Date & Delivered badge
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Oct 02 • 09:30pm',
+                      style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 12),
                     ),
-                    child: const Text(
-                      'Delivered',
-                      style: TextStyle(color: Color(0xFF22C55E), fontSize: 11, fontWeight: FontWeight.bold),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF22C55E).withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        'Delivered',
+                        style: TextStyle(color: Color(0xFF22C55E), fontSize: 11, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
+                  ],
+                ),
+                const SizedBox(height: 12),
 
-              // Restaurant & items
-              Row(
-                children: [
-                  Container(
-                    width: 54,
-                    height: 54,
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F6F4),
-                      borderRadius: BorderRadius.circular(10),
+                // Restaurant & items
+                Row(
+                  children: [
+                    Container(
+                      width: 54,
+                      height: 54,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF8F6F4),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.asset(
+                        order.items.isNotEmpty ? order.items.first.food.image : 'assets/images/burger_hero.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    child: Image.asset(
-                      order.items.isNotEmpty ? order.items.first.food.image : 'assets/images/burger_hero.png',
-                      fit: BoxFit.contain,
+                    const SizedBox(width: 14),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            order.restaurantName,
+                            style: AppTypography.heading3.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            'Order ID: ${order.id} · ${order.items.length} Items',
+                            style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 11),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 14),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          order.items.isNotEmpty ? order.items.first.food.name : order.restaurantName,
-                          style: AppTypography.heading3.copyWith(fontSize: 15, fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Order ID: ${order.id} · ${order.items.length} Items',
-                          style: AppTypography.caption.copyWith(color: AppColors.textLight, fontSize: 11),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-              const SizedBox(height: 12),
+                const SizedBox(height: 12),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Total: \$${order.grandTotal.toStringAsFixed(2)}',
-                    style: AppTypography.bodyLarge.copyWith(fontWeight: FontWeight.w800, fontSize: 14),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      provider.reorder(order);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Items added to cart! Proceeding to checkout.')),
-                      );
-                    },
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppColors.primary,
-                      side: const BorderSide(color: AppColors.primary),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Total: \$${order.grandTotal.toStringAsFixed(2)}',
+                      style: AppTypography.bodyLarge.copyWith(fontWeight: FontWeight.w800, fontSize: 14),
                     ),
-                    child: const Text('Order Again', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                  ),
-                ],
-              ),
-            ],
+                    OutlinedButton(
+                      onPressed: () {
+                        provider.reorder(order);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Items added to cart! Proceeding to checkout.')),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.primary,
+                        side: const BorderSide(color: AppColors.primary),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
+                      child: const Text('Order Again', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -39,15 +39,18 @@ class RestaurantCard extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(AppTheme.radiusXl)),
                   child: AspectRatio(
                     aspectRatio: 2.1,
-                    child: Image.asset(
-                      restaurant.bannerImage,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: AppColors.background,
-                          child: const Icon(Icons.restaurant, size: 40, color: AppColors.textMuted),
-                        );
-                      },
+                    child: Hero(
+                      tag: 'restaurant_banner_${restaurant.id}',
+                      child: Image.asset(
+                        restaurant.bannerImage,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: AppColors.primary,
+                            child: const Icon(Icons.restaurant, size: 40, color: Colors.white54),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
