@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../navigation/main_nav_scaffold.dart';
+import 'widgets/animated_burger_hero.dart';
 
 
 class OnboardingScreen extends StatefulWidget {
@@ -52,30 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         bottom: false,
         child: Column(
           children: [
-            const SizedBox(height: 12),
-            // Slide indicators at the top
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Row(
-                children: List.generate(
-                  _pages.length,
-                  (index) => Expanded(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index
-                            ? Colors.white
-                            : Colors.white.withValues(alpha: 0.35),
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
             // PageView with title and hero food image
             Expanded(
@@ -103,36 +81,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       // Floating visual food asset with soft depth
                       Expanded(
                         child: Center(
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              // Ambient soft underglow shadow
-                              Container(
-                                width: 220,
-                                height: 220,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.28),
-                                      blurRadius: 40,
-                                      spreadRadius: 6,
-                                      offset: const Offset(0, 18),
+                          child: index == 0
+                              ? const AnimatedBurgerHero(size: 320)
+                              : Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    // Ambient soft underglow shadow
+                                    Container(
+                                      width: 220,
+                                      height: 220,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withValues(alpha: 0.28),
+                                            blurRadius: 40,
+                                            spreadRadius: 6,
+                                            offset: const Offset(0, 18),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    // Floating transparent food image
+                                    Container(
+                                      constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
+                                      padding: const EdgeInsets.all(8),
+                                      child: Image.asset(
+                                        item['image']!,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              // Floating transparent food image
-                              Container(
-                                constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
-                                padding: const EdgeInsets.all(8),
-                                child: Image.asset(
-                                  item['image']!,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ],
