@@ -9,7 +9,7 @@ class AppProvider extends ChangeNotifier {
   int _currentNavIndex = 0;
   String _selectedCategory = 'burger';
   String _searchQuery = '';
-  String _deliveryLocation = 'Mirpur, Dhaka Bangladesh';
+  String _deliveryLocation = 'Manhattan, New York, USA';
   
   // Promo code state
   String _appliedPromo = '';

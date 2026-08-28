@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../core/state/app_provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
@@ -97,11 +99,15 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () {},
                   ),
                   _buildDivider(),
-                  _buildMenuItem(
-                    icon: Icons.location_on_outlined,
-                    title: 'Saved Addresses',
-                    subtitle: 'Mirpur, Dhaka Bangladesh',
-                    onTap: () {},
+                  Consumer<AppProvider>(
+                    builder: (context, provider, _) {
+                      return _buildMenuItem(
+                        icon: Icons.location_on_outlined,
+                        title: 'Saved Addresses',
+                        subtitle: provider.deliveryLocation,
+                        onTap: () {},
+                      );
+                    },
                   ),
                   _buildDivider(),
                   _buildMenuItem(

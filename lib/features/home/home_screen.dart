@@ -447,11 +447,12 @@ class HomeScreen extends StatelessWidget {
 
   void _showLocationSelector(BuildContext context, AppProvider provider) {
     final locations = [
-      'Mirpur, Dhaka Bangladesh',
-      'Gulshan-2, Dhaka Bangladesh',
-      'Dhanmondi 27, Dhaka Bangladesh',
-      'Banani 11, Dhaka Bangladesh',
-      'Uttara Sector 7, Dhaka Bangladesh',
+      'Manhattan, New York, USA',
+      'Brooklyn, New York, USA',
+      'Downtown, Los Angeles, CA',
+      'South Beach, Miami, FL',
+      'Lincoln Park, Chicago, IL',
+      'Market St, San Francisco, CA',
     ];
 
     showModalBottomSheet(
