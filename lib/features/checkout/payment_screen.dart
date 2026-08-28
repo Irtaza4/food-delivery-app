@@ -6,7 +6,7 @@ import '../../core/theme/app_typography.dart';
 import '../../core/theme/app_theme.dart';
 import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/custom_text_field.dart';
-import '../confirmation/order_confirmed_dialog.dart';
+import '../confirmation/order_confirmed_screen.dart';
 
 class PaymentCheckoutScreen extends StatefulWidget {
   const PaymentCheckoutScreen({super.key});
@@ -324,10 +324,10 @@ class _PaymentCheckoutScreenState extends State<PaymentCheckoutScreen> {
                                 paymentMethod: _selectedPaymentMethod == 1 ? 'Credit Card' : 'PayPal',
                               );
 
-                              showDialog(
-                                context: context,
-                                barrierDismissible: false,
-                                builder: (_) => OrderConfirmedDialog(order: order),
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => OrderConfirmedScreen(order: order),
+                                ),
                               );
                             }
                           : null,
