@@ -40,11 +40,6 @@ class HomeScreen extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              // Horizontal Category List
-              _buildCategorySection(context),
-
-              const SizedBox(height: 24),
-
               // Popular Restaurants Horizontal Carousel
               _buildPopularRestaurantsSection(context),
 
@@ -323,72 +318,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildCategorySection(BuildContext context) {
-    return Consumer<AppProvider>(
-      builder: (context, provider, _) {
-        return SizedBox(
-          height: 92,
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            scrollDirection: Axis.horizontal,
-            itemCount: MockData.categories.length,
-            separatorBuilder: (context, index) => const SizedBox(width: 16),
-            itemBuilder: (context, index) {
-              final cat = MockData.categories[index];
-              final isSelected = provider.selectedCategory == cat.id;
-
-              return GestureDetector(
-                onTap: () {
-                  provider.setSelectedCategory(cat.id);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => CategoryGridScreen(
-                        categoryTitle: cat.name,
-                        initialCategoryId: cat.id,
-                      ),
-                    ),
-                  );
-                },
-                child: Column(
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: isSelected ? AppColors.primary : Colors.white,
-                        shape: BoxShape.circle,
-                        boxShadow: AppTheme.cardShadow,
-                        border: Border.all(
-                          color: isSelected ? AppColors.primary : AppColors.border.withValues(alpha: 0.7),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          cat.iconEmoji,
-                          style: const TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      cat.name,
-                      style: AppTypography.caption.copyWith(
-                        color: isSelected ? AppColors.primary : AppColors.textPrimary,
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
-      },
     );
   }
 

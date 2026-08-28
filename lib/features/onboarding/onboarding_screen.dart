@@ -4,7 +4,6 @@ import '../../core/theme/app_typography.dart';
 import '../navigation/main_nav_scaffold.dart';
 import 'widgets/animated_burger_hero.dart';
 
-
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -14,6 +13,12 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   final List<Map<String, String>> _pages = [
     {
@@ -47,18 +52,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFC92014), // Signature vibrant red from screenshots
+      backgroundColor: const Color(
+        0xFFC92014,
+      ), // Signature vibrant red from screenshots
       body: SafeArea(
         bottom: false,
         child: Column(
           children: [
-            const SizedBox(height: 24),
+            const SizedBox(height: 12),
+
+            const SizedBox(height: 20),
 
             // PageView with title and hero food image
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
-                onPageChanged: (index) => setState(() => _currentPage = index),
                 itemCount: _pages.length,
                 itemBuilder: (context, index) {
                   final item = _pages[index];
@@ -93,7 +101,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         shape: BoxShape.circle,
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.black.withValues(alpha: 0.28),
+                                            color: Colors.black.withValues(
+                                              alpha: 0.28,
+                                            ),
                                             blurRadius: 40,
                                             spreadRadius: 6,
                                             offset: const Offset(0, 18),
@@ -103,7 +113,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     ),
                                     // Floating transparent food image
                                     Container(
-                                      constraints: const BoxConstraints(maxWidth: 320, maxHeight: 320),
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 320,
+                                        maxHeight: 320,
+                                      ),
                                       padding: const EdgeInsets.all(8),
                                       child: Image.asset(
                                         item['image']!,
