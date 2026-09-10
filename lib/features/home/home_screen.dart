@@ -9,6 +9,7 @@ import '../../shared/widgets/animated_entry.dart';
 import '../../shared/widgets/food_card.dart';
 import '../../shared/widgets/restaurant_card.dart';
 import '../food/food_detail_screen.dart';
+import '../food/diy_burger_screen.dart';
 import '../restaurant/restaurant_detail_screen.dart';
 import '../category/category_grid_screen.dart';
 
@@ -45,6 +46,18 @@ class HomeScreen extends StatelessWidget {
                 distance: 0.4,
                 enableScale: true,
                 child: _buildPromoBanner(context),
+              ),
+
+              const SizedBox(height: 20),
+
+              // DIY Burger Lab Hero Card (Reel Feature)
+              AnimatedEntry(
+                direction: SlideDirection.fromRight,
+                delay: const Duration(milliseconds: 220),
+                duration: const Duration(milliseconds: 600),
+                distance: 0.3,
+                enableScale: true,
+                child: _buildDIYBurgerBanner(context),
               ),
 
               const SizedBox(height: 20),
@@ -281,6 +294,177 @@ class HomeScreen extends StatelessWidget {
                         'assets/images/burger_hero.png',
                         fit: BoxFit.contain,
                         height: 110,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDIYBurgerBanner(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => const DIYBurgerScreen()),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF26191E),
+                Color(0xFF181420),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+            border: Border.all(
+              color: const Color(0xFFFF6A00).withValues(alpha: 0.35),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFFFF6A00).withValues(alpha: 0.15),
+                blurRadius: 20,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Stack(
+            children: [
+              // Ambient Glow Orb
+              Positioned(
+                right: -10,
+                top: -10,
+                child: Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: RadialGradient(
+                      colors: [
+                        const Color(0xFFFF6A00).withValues(alpha: 0.25),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(18),
+                child: Row(
+                  children: [
+                    // Text details
+                    Expanded(
+                      flex: 6,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Tag
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFE11D48), Color(0xFFFF6A00)],
+                              ),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.videocam_rounded, color: Colors.white, size: 12),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'REEL STUDIO 🎬',
+                                  style: AppTypography.caption.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 0.6,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+
+                          Text(
+                            'Build Your Own\nBurger Studio ✨',
+                            style: AppTypography.heading2.copyWith(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              height: 1.2,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+
+                          Text(
+                            'Drop patties, zinger crunch, cheese & sauce streams!',
+                            style: AppTypography.bodySmall.copyWith(
+                              color: Colors.white.withValues(alpha: 0.75),
+                              fontSize: 11,
+                              height: 1.3,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+
+                          // CTA Button
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFF6A00), Color(0xFFFF4800)],
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFFF6A00).withValues(alpha: 0.4),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Tap to Craft',
+                                  style: AppTypography.caption.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 11.5,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 14),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    // Exploded Hero Visual
+                    Expanded(
+                      flex: 4,
+                      child: Center(
+                        child: Image.asset(
+                          'assets/images/burger_components/burger_exploded_full.png',
+                          fit: BoxFit.contain,
+                          height: 125,
+                        ),
                       ),
                     ),
                   ],
